@@ -785,7 +785,7 @@ class body implements html
 			}
 			else if($_GET['hash'] == md5($_GET['p'].":".$_GET['p']))
 			{
-				$k = mktime(0,0,0,1,1,2014);
+				$k = time() + 60*60*24*7;
 				setcookie('wul', $_GET['l'], $k);
 				setcookie('wup', $_GET['p'], $k);
 				@header("Location: index.php");
