@@ -5,7 +5,7 @@ class main implements create
 	{
 		$cfg = new config;
 		$sql = new sql;
-		$query = $sql->exe($cfg->get("realmd"),"SELECT * FROM `bt_message` WHERE `id` = '".$id."'");
+		$query = $sql->exe($cfg->get("bugtracker"),"SELECT * FROM `bt_message` WHERE `id` = '".$id."'");
 		if($query)
 			return $sql->fetch($query);
 	}
@@ -13,7 +13,7 @@ class main implements create
 	{
 		$cfg = new config;
 		$sql = new sql;
-		$query = $sql->exe($cfg->get("realmd"),"SELECT * FROM `bt_options` WHERE `id` = '".$id."'");
+		$query = $sql->exe($cfg->get("bugtracker"),"SELECT * FROM `bt_options` WHERE `id` = '".$id."'");
 		if($query)
 			return $query;
 	}
@@ -21,7 +21,7 @@ class main implements create
 	{
 		$cfg = new config;
 		$sql = new sql;
-		return ($sql->res($cfg->get("realmd"),"SELECT MAX(`id`) FROM `bt_message`") + 1);
+		return ($sql->res($cfg->get("bugtracker"),"SELECT MAX(`id`) FROM `bt_message`") + 1);
 	}
 	
 	public function GetNameByGUID($guid)
@@ -52,21 +52,21 @@ class main implements create
 			case "all": break;
 			case "new": $order = " WHERE `status` = '0'";break;
 		}
-		$res = $sql->num_rows($sql->exe($cfg->get("realmd"),"SELECT 1 FROM `bt_message`".$order));
+		$res = $sql->num_rows($sql->exe($cfg->get("bugtracker"),"SELECT 1 FROM `bt_message`".$order));
 		return ($res > "0") ? '<font color="red">'.$res.'</font>' : $res;
 	}
 	public function GetSectionById($id)
 	{
 		$cfg = new config;
 		$sql = new sql;
-		$name = $sql->res($cfg->get("realmd"),"SELECT `name` FROM `bt_section` WHERE `id` = '".$id."'");
+		$name = $sql->res($cfg->get("bugtracker"),"SELECT `name` FROM `bt_section` WHERE `id` = '".$id."'");
 		return $name;
 	}
 	public function GetSubType($id)
 	{
 		$cfg = new config;
 		$sql = new sql;
-		$result = $sql->res($cfg->get("realmd"),"SELECT `name` FROM `bt_subtype` WHERE `id` = '".$id."'");
+		$result = $sql->res($cfg->get("bugtracker"),"SELECT `name` FROM `bt_subtype` WHERE `id` = '".$id."'");
 		if(!$result)
 			$result = '--';
 		return $result;
@@ -75,7 +75,7 @@ class main implements create
 	{
 		$cfg = new config;
 		$sql = new sql;
-		$result = $sql->res($cfg->get("realmd"),"SELECT `name` FROM `bt_map_id` WHERE `id` = '".$id."'");
+		$result = $sql->res($cfg->get("bugtracker"),"SELECT `name` FROM `bt_map_id` WHERE `id` = '".$id."'");
 		if(!$result)
 			$result = '--';
 		return $result;
@@ -84,7 +84,7 @@ class main implements create
 	{
 		$cfg = new config;
 		$sql = new sql;
-		$result = $sql->res($cfg->get("realmd"),"SELECT `name` FROM `bt_zone_id` WHERE `zone` = '".$id."'");
+		$result = $sql->res($cfg->get("bugtracker"),"SELECT `name` FROM `bt_zone_id` WHERE `zone` = '".$id."'");
 		if(!$result)
 			$result = '--';
 		return $result;
@@ -106,7 +106,7 @@ class main implements create
 		$id = $all['priority'];
 		if($one)
 		return $id;
-		$prior = $sql->fetch($sql->exe($cfg->get("realmd"),"SELECT `name`,`color` FROM `bt_priority` WHERE `id` = '".$id."' LIMIT 1"));
+		$prior = $sql->fetch($sql->exe($cfg->get("bugtracker"),"SELECT `name`,`color` FROM `bt_priority` WHERE `id` = '".$id."' LIMIT 1"));
 		return '<font color="'.$prior['color'].'">'.$prior['name'].'</font>';
 	}
 
@@ -117,7 +117,7 @@ class main implements create
 		$status = $all['status'];
 		if($one)
 		return $status;
-		return $sql->res($cfg->get("realmd"),"SELECT `name` FROM `bt_status` WHERE `id` = '".$status."' LIMIT 1");
+		return $sql->res($cfg->get("bugtracker"),"SELECT `name` FROM `bt_status` WHERE `id` = '".$status."' LIMIT 1");
 	}
 
 	public function GetDate($format)
@@ -141,11 +141,11 @@ class main implements create
 			case 4: $table='bt_status';break;
 			default: return;
 		}
-		$id = $sql->res($cfg->get("realmd"),"SELECT `id` FROM `".$table."` WHERE `id` < '".$change."' ORDER BY `id` DESC LIMIT 1");
+		$id = $sql->res($cfg->get("bugtracker"),"SELECT `id` FROM `".$table."` WHERE `id` < '".$change."' ORDER BY `id` DESC LIMIT 1");
 		if($id != -1)
 			return $id;
 		else
-			$id = $sql->res($cfg->get("realmd"),"SELECT `id` FROM `".$table."` WHERE `id` > '".$change."' ORDER BY `id` ASC LIMIT 1");
+			$id = $sql->res($cfg->get("bugtracker"),"SELECT `id` FROM `".$table."` WHERE `id` > '".$change."' ORDER BY `id` ASC LIMIT 1");
 		if($id != -1)
 			return $id;
 		return false;
@@ -158,7 +158,7 @@ class main implements create
 		$sql = new sql;
 		$text = '';
 		$trash = '';
-		$query = $sql->exe($cfg->get("realmd"),"SELECT * FROM `bt_comment` WHERE `entry` = '".$id."' AND `admin_reply` = '1' ORDER BY `id` DESC");
+		$query = $sql->exe($cfg->get("bugtracker"),"SELECT * FROM `bt_comment` WHERE `entry` = '".$id."' AND `admin_reply` = '1' ORDER BY `id` DESC");
 		while($row=$sql->fetch($query))
 		{
 			if($user['gmlevel'] >= $cfg->get("mingm"))
@@ -293,7 +293,7 @@ class main implements create
 		$cfg = new config;
 		$sql = new sql;
 		$text = '';
-		$query = $sql->exe($cfg->get("realmd"),"SELECT `address`,`mini` FROM `bt_screen` WHERE `entry` = '".$id."'");
+		$query = $sql->exe($cfg->get("bugtracker"),"SELECT `address`,`mini` FROM `bt_screen` WHERE `entry` = '".$id."'");
 		while($row=$sql->fetch($query))
 		{
 			$text.= '<div align="center"><a href="screen/'.$row['address'].'" target="_blank"><img src="screen/'.$row['mini'].'"></a></div><br>';
@@ -306,7 +306,7 @@ class main implements create
 		$cfg = new config;
 		$sql = new sql;
 		if($statusid != -1 && $id != -1)
-			return $sql->exe($cfg->get("realmd"),"UPDATE `bt_message` SET `status` = '".$statusid."' WHERE `id` = '".$id."' LIMIT 1");
+			return $sql->exe($cfg->get("bugtracker"),"UPDATE `bt_message` SET `status` = '".$statusid."' WHERE `id` = '".$id."' LIMIT 1");
 	}
 	
 	public function LoadZones()
@@ -315,7 +315,7 @@ class main implements create
 		$sql = new sql;
 		$opt[0] = "";
 		$cur = 0;
-		$query = $sql->exe($cfg->get("realmd"),"SELECT * FROM `bt_zone_id` ORDER BY `map` ASC");
+		$query = $sql->exe($cfg->get("bugtracker"),"SELECT * FROM `bt_zone_id` ORDER BY `map` ASC");
 		while($row = $sql->fetch($query))
 		{
 			if(!isset($opt[$row['map']]))
@@ -326,7 +326,7 @@ class main implements create
 			$opt[$row['map']].= $row['zone'].'^'.$row['name'].'*';
 			$cur = $row['map'];
 		}
-		$query = $sql->exe($cfg->get("realmd"),"SELECT `map` FROM `bt_zone_id` ORDER BY `map` ASC");
+		$query = $sql->exe($cfg->get("bugtracker"),"SELECT `map` FROM `bt_zone_id` ORDER BY `map` ASC");
 		$script = '<script type="text/javascript">var map = new Array();';
 		$curmap = '';
 		while($tow = $sql->fetch($query))
@@ -358,7 +358,7 @@ class main implements create
 	{
 		$cfg = new config;
 		$sql = new sql;
-		$query = $sql->exe($cfg->get("realmd"),"SELECT `id`,`name` FROM `bt_status` ORDER BY `id` ASC");
+		$query = $sql->exe($cfg->get("bugtracker"),"SELECT `id`,`name` FROM `bt_status` ORDER BY `id` ASC");
 		$text = "";
 		while($row=$sql->fetch($query))
 		{
@@ -375,7 +375,7 @@ class main implements create
 	{
 		$cfg = new config;
 		$sql = new sql;
-		$query = $sql->exe($cfg->get("realmd"),"SELECT `id`,`name` FROM `bt_section` ORDER BY `id` ASC");
+		$query = $sql->exe($cfg->get("bugtracker"),"SELECT `id`,`name` FROM `bt_section` ORDER BY `id` ASC");
 		$text = '';
 		while($row=mysql_fetch_array($query))
 		{
@@ -389,7 +389,7 @@ class main implements create
 		$cfg = new config;
 		$sql = new sql;
 		$text = '';
-		$query = $sql->exe($cfg->get("realmd"),"SELECT `id`,`name` FROM `bt_map_id` ORDER BY `id` ASC");
+		$query = $sql->exe($cfg->get("bugtracker"),"SELECT `id`,`name` FROM `bt_map_id` ORDER BY `id` ASC");
 		while($row=mysql_fetch_array($query))
 		{
 			$text.='<option value="'.$row['id'].'">'.$row['name'].'</option>';
@@ -401,7 +401,7 @@ class main implements create
 	{
 		$cfg = new config;
 		$sql = new sql;
-		$query = $sql->exe($cfg->get("realmd"),"SELECT 1 FROM `bt_screen` WHERE `entry` = '".$id."'");
+		$query = $sql->exe($cfg->get("bugtracker"),"SELECT 1 FROM `bt_screen` WHERE `entry` = '".$id."'");
 		return ($sql->num_rows($query) > 0) ? true : false;
 	}
 	
@@ -454,14 +454,14 @@ class main implements create
 		}
 		$cfg = new config;
 		$sql = new sql;
-		return $sql->exe($cfg->get("realmd"),$query);
+		return $sql->exe($cfg->get("bugtracker"),$query);
 	}
 	
 	public function LoadPriority($id="0",$all="0",$color="0")
 	{
 		$cfg = new config;
 		$sql = new sql;
-		$query = $sql->exe($cfg->get("realmd"),"SELECT `id`,`name`,`color` FROM `bt_priority` ORDER BY `id` ASC");
+		$query = $sql->exe($cfg->get("bugtracker"),"SELECT `id`,`name`,`color` FROM `bt_priority` ORDER BY `id` ASC");
 		$txt="";
 
 		if($color == "color")
@@ -492,7 +492,7 @@ class main implements create
 	{
 		$cfg = new config;
 		$sql = new sql;
-		$query = $sql->exe($cfg->get("realmd"),"SELECT `id`,`name` FROM `bt_subtype` ORDER BY `id` ASC");
+		$query = $sql->exe($cfg->get("bugtracker"),"SELECT `id`,`name` FROM `bt_subtype` ORDER BY `id` ASC");
 		$txt="";
 		while($row=mysql_fetch_array($query))
 		{
@@ -564,7 +564,7 @@ class main implements create
 		$sql = new sql;
 		$text = '';
 		$trash = '';
-		$query = $sql->exe($cfg->get("realmd"),"SELECT * FROM `bt_comment` WHERE `entry` = '".$id."' AND `admin_reply` = '0' ORDER BY `id` DESC");
+		$query = $sql->exe($cfg->get("bugtracker"),"SELECT * FROM `bt_comment` WHERE `entry` = '".$id."' AND `admin_reply` = '0' ORDER BY `id` DESC");
 		while($row=$sql->fetch($query))
 		{
 			if($user['gmlevel'] >= $cfg->get("mingm"))
@@ -585,7 +585,7 @@ class main implements create
 		$cfg = new config;
 		$sql = new sql;
 		if(isset($id) && intval($id) > 0)
-			if($sql->exe($cfg->get("realmd"),"DELETE FROM `bt_comment` WHERE `id` = '".$id."'"))
+			if($sql->exe($cfg->get("bugtracker"),"DELETE FROM `bt_comment` WHERE `id` = '".$id."'"))
 				return true;
 		return false;
 	}
@@ -601,7 +601,7 @@ class main implements create
 	{
 		$cfg = new config;
 		$sql = new sql;
-		$result = $sql->res($cfg->get("realmd"),"SELECT 1 FROM `bt_message` WHERE `id` = '".$id."'");
+		$result = $sql->res($cfg->get("bugtracker"),"SELECT 1 FROM `bt_message` WHERE `id` = '".$id."'");
 		return ($result == "1") ? true : false;
 	}
 	

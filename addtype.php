@@ -104,13 +104,13 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == "XMLHttpRequest" && isset($_POST['type']
 			}
 			if($upd)
 			{
-				if(!$sql->exe($cfg->get("realmd"),$upd))
+				if(!$sql->exe($cfg->get("bugtracker"),$upd))
 					echo 'Ошибка переноса! MySQL код некорректен!';
 			}
 			else
 				echo 'Ошибка! Тип '.$type.' не опознан!';
 		}
-		if($sql->exe($cfg->get("realmd"),$query))
+		if($sql->exe($cfg->get("bugtracker"),$query))
 			echo 1;
 		else
 			echo 'Ошибка! MySQL код некорректен!';

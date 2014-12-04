@@ -18,7 +18,7 @@ if(isset($_POST['login']) && isset($_POST['passw']) && $user['id'] == "-1")
 
 if(file_exists("install.php"))
 {
-	if($sql->exe($cfg->get("realmd"),"SELECT 1 FROM `bt_message`"))
+	if($sql->exe($cfg->get("bugtracker"),"SELECT 1 FROM `bt_message`"))
 		$body->blocknot('<div class="pad">Внимание!<br><br>Необходимо удалить файл <b>install.php</b> в корневой директории баг-трекера.</div>');
 	else
 		$body->install();

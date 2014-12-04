@@ -20,7 +20,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == "XMLHttpRequest" &&
 	if(isset($_POST['admin']) && $_POST['admin'] == "1")
 		$query = "INSERT INTO `bt_comment` (`entry`,`account`,`player`,`text`,`date`,`admin_reply`) VALUES ('".$entry."','".$account."','".$player."','".$text."','".$date."','1')";
 
-	$sql->exe($cfg->get("realmd"),$query);
+	$sql->exe($cfg->get("bugtracker"),$query);
 	echo $date;
 }
 ?>

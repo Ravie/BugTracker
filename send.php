@@ -38,17 +38,17 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == "XMLHttpRequest" &&
 			$screen.= "('".$id."','".$links[0]."','".$links[1]."'),";
 		}
 		$query = substr($screen, 0, strlen($screen)-1);
-		if(!$sql->exe($cfg->get("realmd"),$query))
+		if(!$sql->exe($cfg->get("bugtracker"),$query))
 			echo 'Таблица `bt_screen` недоступна или повреждена. Данные не записаны!';
 	}
 
 	$row = explode("^", $_POST['sql']);
 	$query = "('".$id."','".$_POST['userid']."','".$row[0]."','".$row[5]."','1','".$row[1]."','".$area1."','".$area2."','".$area3."','".$row[2]."','".$row[3]."','".$row[4]."','".$date."')";
 
-	if(!$sql->exe($cfg->get("realmd"),"INSERT INTO `bt_message` (`id`,`account`,`sender`,`title`,`priority`,`type`,`text_1`,`text_2`,`text_3`,`subtype`,`map`,`zone`,`date`) VALUES ".$query))
+	if(!$sql->exe($cfg->get("bugtracker"),"INSERT INTO `bt_message` (`id`,`account`,`sender`,`title`,`priority`,`type`,`text_1`,`text_2`,`text_3`,`subtype`,`map`,`zone`,`date`) VALUES ".$query))
 		echo 'Таблица `bt_message` недоступна или повреждена! Данные не записаны!';
 
-	if(!$sql->exe($cfg->get("realmd"),"INSERT INTO `bt_options` (`id`,`link`) VALUES ".$link_query))
+	if(!$sql->exe($cfg->get("bugtracker"),"INSERT INTO `bt_options` (`id`,`link`) VALUES ".$link_query))
 		echo 'Таблица `bt_options` недоступна или повреждена! Данные не записаны!';
 }
 ?>
