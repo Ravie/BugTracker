@@ -608,7 +608,7 @@ class body implements html
 		if($main->GetDate("d") % $cfg->get("checkdiff") != 0 || !$created)
 		{
 			$current = $cfg->get("version");
-			$fp = fopen("http://github.com/Hantet/BugTracker/", "r");
+			$fp = fopen("http://github.com/Ravie/BugTracker/", "r");
 			if($fp)
 			{
 				$str = '';
@@ -632,7 +632,7 @@ class body implements html
 					Для того, чтобы обновить баг-трекер, необходимо:
 					<ul>
 					<li>В программе GIT ввести команду <b>git pull</b>.</li>
-					<li>Или скачать готовый архив с новой версией <a href="http://github.com/Hantet/BugTracker/">отсюда</a>.</li>
+					<li>Или скачать готовый архив с новой версией <a href="http://github.com/Ravie/BugTracker/">отсюда</a>.</li>
 					</ul>
 					Для того, чтобы отключить это уведомление, необходимо:
 					<ul>
